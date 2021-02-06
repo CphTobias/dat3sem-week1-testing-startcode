@@ -16,8 +16,6 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
         ClubPerson cp = new ClubPerson("Tobias", "Z", 22, "31312331");
-        em.createNamedQuery("ClubPerson.deleteAllRows");
-        em.createQuery("DELETE FROM ClubMessage");
         try {
             em.getTransaction().begin();
             em.persist(cp);

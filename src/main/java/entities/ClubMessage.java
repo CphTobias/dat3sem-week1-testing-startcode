@@ -6,27 +6,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "clubmessage")
+@NamedQueries({
+    @NamedQuery(name = "ClubMessage.deleteAllRows", query = "DELETE FROM ClubMessage")
+})
 public class ClubMessage implements Serializable {
 
     private static final long serialVersionUID = 1127928236982432232L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "message")
     private String message;
 
-    @ManyToOne(
-        fetch = FetchType.LAZY
-    )
+    @ManyToOne()
     private ClubPerson person;
 
     public ClubMessage(String message) {

@@ -3,6 +3,7 @@ package facades;
 import dtos.PersonDTO;
 import entities.ClubPerson;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
@@ -77,8 +78,15 @@ public class ClubPersonFacade {
 
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
-        ClubPersonFacade fe = getFacadeExample(emf);
-        fe.getAllPeopleDTO().forEach(System.out::println);
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM ClubMessage").executeUpdate();
+            em.createNamedQuery("ClubPerson.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
 }
