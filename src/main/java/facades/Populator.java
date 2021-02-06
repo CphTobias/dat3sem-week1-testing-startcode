@@ -5,6 +5,7 @@
  */
 package facades;
 
+import entities.ClubMessage;
 import entities.ClubPerson;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,12 +15,14 @@ public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
+        ClubPerson cp = new ClubPerson("Tobias", "Z", 22, "31312331");
+        em.createNamedQuery("ClubPerson.deleteAllRows");
+        em.createQuery("DELETE FROM ClubMessage");
         try {
             em.getTransaction().begin();
-            em.persist(new ClubPerson("Tobias", "Z", 22, "31312331"));
-            em.persist(new ClubPerson("Tobias", "Z", 22, "31312331"));
-            em.persist(new ClubPerson("Tobias", "Z", 22, "31312331"));
-            em.persist(new ClubPerson("Tobias", "Z", 22, "31312331"));
+            em.persist(cp);
+            em.persist(new ClubMessage("Hello there this is a test", cp));
+
             em.getTransaction().commit();
         } finally {
             em.close();

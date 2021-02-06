@@ -19,7 +19,10 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="EclipseLink" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="pu" value="c4a6f387-e3df-4347-8cce-5fca31203e01" />
+          <factory-entry name="puTest" value="c4a6f387-e3df-4347-8cce-5fca31203e01" />
+        </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
