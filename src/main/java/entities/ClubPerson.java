@@ -1,14 +1,22 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
+@Table(name = "clubperson")
 @Entity
 @NamedQueries({
     @NamedQuery(name = "ClubPerson.deleteAllRows", query = "DELETE from ClubPerson"),
@@ -23,10 +31,14 @@ public class ClubPerson implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
     private int age;
     private String creditCard;
+
+    @OneToMany
+    private List<ClubMessage> clubMessages = new ArrayList<>();
 
     public ClubPerson() {
     }

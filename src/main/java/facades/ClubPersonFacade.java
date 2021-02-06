@@ -3,14 +3,11 @@ package facades;
 import dtos.PersonDTO;
 import entities.ClubPerson;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
-/**
- *
- * Rename Class to a relevant name Add add relevant facade methods
- */
 public class ClubPersonFacade {
 
     private static ClubPersonFacade instance;
@@ -77,8 +74,18 @@ public class ClubPersonFacade {
 
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
-        ClubPersonFacade fe = getFacadeExample(emf);
-        fe.getAllPeopleDTO().forEach(System.out::println);
+        EntityManager em = emf.createEntityManager();
+        ClubMessageFacade clubMessageFacade = ClubMessageFacade.getInstance(emf);
+        ClubPersonFacade personFacade = ClubPersonFacade.getFacadeExample(emf);
+        try {
+            ClubPerson clubPerson = em.createQuery("SELECT cp FROM ClubPerson cp WHERE cp.id = 1", ClubPerson.class).getSingleResult();
+            em.getTransaction().begin();
+            clubMessageFacade.addMessage("This is a new message", clubPerson);
+            clubMessageFacade.addMessage("Hello world", clubPerson);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
 }
