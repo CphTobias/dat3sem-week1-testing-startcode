@@ -75,10 +75,13 @@ public class ClubPersonFacade {
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
+        ClubMessageFacade clubMessageFacade = ClubMessageFacade.getInstance(emf);
+        ClubPersonFacade personFacade = ClubPersonFacade.getFacadeExample(emf);
         try {
+            ClubPerson clubPerson = em.createQuery("SELECT cp FROM ClubPerson cp WHERE cp.id = 1", ClubPerson.class).getSingleResult();
             em.getTransaction().begin();
-            em.createQuery("DELETE FROM ClubMessage").executeUpdate();
-            em.createNamedQuery("ClubPerson.deleteAllRows").executeUpdate();
+            clubMessageFacade.addMessage("This is a new message", clubPerson);
+            clubMessageFacade.addMessage("Hello world", clubPerson);
             em.getTransaction().commit();
         } finally {
             em.close();

@@ -9,12 +9,12 @@ public class MessageDTO {
 
     private long id;
     private String message;
-    private ClubPerson clubPerson;
+    private PersonDTO personDTO;
 
     public MessageDTO(ClubMessage message) {
         this.id = message.getId();
         this.message = message.getMessage();
-        this.clubPerson = message.getPerson();
+        this.personDTO = new PersonDTO(message.getPerson());
     }
 
     public static List<MessageDTO> getFromList(List<ClubMessage> messages) {
@@ -23,15 +23,15 @@ public class MessageDTO {
             .collect(Collectors.toList());
     }
 
-    public MessageDTO(String message, ClubPerson clubPerson) {
+    public MessageDTO(String message, PersonDTO personDTO) {
         this.message = message;
-        this.clubPerson = clubPerson;
+        this.personDTO = personDTO;
     }
 
-    public MessageDTO(long id, String message, ClubPerson clubPerson) {
+    public MessageDTO(long id, String message, PersonDTO personDTO) {
         this.id = id;
         this.message = message;
-        this.clubPerson = clubPerson;
+        this.personDTO = personDTO;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MessageDTO {
         return "MessageDTO{" +
             "id=" + id +
             ", message='" + message + '\'' +
-            ", clubPerson=" + clubPerson +
+            ", clubPerson=" + personDTO+
             '}';
     }
 
@@ -59,11 +59,11 @@ public class MessageDTO {
         this.message = message;
     }
 
-    public ClubPerson getClubPerson() {
-        return clubPerson;
+    public PersonDTO getPersonDTO() {
+        return personDTO;
     }
 
-    public void setClubPerson(ClubPerson clubPerson) {
-        this.clubPerson = clubPerson;
+    public void setPersonDTO(PersonDTO personDTO) {
+        this.personDTO = personDTO;
     }
 }

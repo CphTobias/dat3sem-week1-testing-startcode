@@ -52,9 +52,11 @@ public class ClubMessageFacade {
         return MessageDTO.getFromList(clubMessages);
     }
 
-    public List<MessageDTO> getAllMessagesByPerson(ClubPerson clubPerson) {
+    public List<MessageDTO> getAllMessagesByPerson(long personid) {
         EntityManager em = getEntityManager();
-        List<ClubMessage> clubMessages = em.createNamedQuery("ClubMessage.findByPerson", ClubMessage.class).getResultList();
+        List<ClubMessage> clubMessages = em.createNamedQuery("ClubMessage.findByPerson", ClubMessage.class)
+            .setParameter("person", personid)
+            .getResultList();
         return MessageDTO.getFromList(clubMessages);
     }
 }
