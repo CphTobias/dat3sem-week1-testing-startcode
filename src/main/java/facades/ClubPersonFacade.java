@@ -8,10 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
-/**
- *
- * Rename Class to a relevant name Add add relevant facade methods
- */
 public class ClubPersonFacade {
 
     private static ClubPersonFacade instance;

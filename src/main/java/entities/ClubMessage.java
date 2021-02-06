@@ -17,7 +17,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "clubmessage")
 @NamedQueries({
-    @NamedQuery(name = "ClubMessage.deleteAllRows", query = "DELETE FROM ClubMessage")
+    @NamedQuery(name = "ClubMessage.deleteAllRows", query = "DELETE FROM ClubMessage"),
+    @NamedQuery(name = "ClubMessage.findAll", query = "SELECT cm FROM ClubMessage cm"),
+    @NamedQuery(name = "ClubMessage.findByPerson", query = "SELECT cm FROM ClubMessage cm WHERE cm.person = :person")
 })
 public class ClubMessage implements Serializable {
 
